@@ -1,0 +1,7 @@
+FastQC 0.11.9
+Trimmomatic 0.39
+Trinity 2.14.0
+BUSCO 5.4.2
+Salmon 1.8.0
+DESeq2 v1.38.1
+tximport v1.26.0
