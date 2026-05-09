@@ -1,0 +1,11 @@
+#!/bin/bash
+
+source $1
+
+cd-hit-est \
+-i $TRINITY_FASTA \
+-o $CDHIT_FASTA \
+-c 0.9 \
+-n 8 \
+-T $THREADS \
+-M 64000
