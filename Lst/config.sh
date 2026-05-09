@@ -1,0 +1,15 @@
+#!/bin/bash
+
+THREADS=8
+SPECIES=Lst
+
+BASE_DIR=~/Lst
+
+RAW_DIR=$BASE_DIR/raw
+TRIM_DIR=$BASE_DIR/trimmed
+ASSEMBLY_DIR=$BASE_DIR/assembly
+
+TRINITY_OUT=$ASSEMBLY_DIR/trinity
+TRANSCRIPTOME=$TRINITY_OUT/Trinity.fasta
+
+METADATA_DIR=Lst/metadata
