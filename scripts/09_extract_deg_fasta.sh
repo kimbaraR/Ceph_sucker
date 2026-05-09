@@ -44,3 +44,20 @@ seqkit grep \
 -f ../deg_analysis/proximal_PMD_genes.txt \
 $TRANSCRIPTOME \
 -o ../deg_analysis/fasta/Proximal.fa
+
+##################################################
+# overlap between Distal and Oral
+##################################################
+
+mkdir -p ../deg_analysis/overlap
+
+# distal & oral
+grep -Fxf \
+../deg_analysis/distal_PMD_genes.txt \
+../deseq2/oab/oral_genes.txt \
+> ../deg_analysis/overlap/distal_oral_genes.txt
+
+seqkit grep \
+-f ../deg_analysis/overlap/distal_oral_genes.txt \
+$TRANSCRIPTOME \
+-o ../deg_analysis/overlap/distal_oral.fa
