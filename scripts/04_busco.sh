@@ -1,5 +1,10 @@
 #!/bin/bash
-source ../config/config.sh
+# usage:
+# bash scripts/04_busco.sh Ses/config.sh
+# bash scripts/04_busco.sh Afang/config.sh
+# bash scripts/04_busco.sh Lst/config.sh
+
+source "$1"
 
 busco \
 -m transcriptome \
