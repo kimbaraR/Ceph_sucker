@@ -10,8 +10,9 @@ TRIM_DIR=$BASE_DIR/trimmed
 FASTQC_DIR=$BASE_DIR/fastqc
 ASSEMBLY_DIR=$BASE_DIR/assembly
 SALMON_DIR=$BASE_DIR/salmon
-METADATA_DIR=Ses/metadata
 ADAPTER=$BASE_DIR/adapter_Ses.fa
+
+METADATA_DIR=../Ses/metadata
 
 # Assembly outputs
 TRINITY_ABO=$ASSEMBLY_DIR/Trinity_Ses2nd_oab
