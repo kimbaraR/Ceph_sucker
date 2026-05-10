@@ -15,4 +15,4 @@ ADAPTER=$BASE_DIR/adapter_Af.fa
 TRINITY_OUT=$ASSEMBLY_DIR/trinity_out
 TRANSCRIPTOME=$TRINITY_OUT/Trinity.fasta
 
-METADATA_DIR=../Af/metadata
+METADATA_DIR=Afang/metadata
