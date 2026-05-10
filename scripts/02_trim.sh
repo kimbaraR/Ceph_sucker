@@ -1,5 +1,10 @@
 #!/bin/bash
-source ../config/config.sh
+# usage:
+# bash 02_trim.sh ../Ses/config.sh
+# bash 02_trim.sh ../Afang/config.sh
+# bash 02_trim.sh ../Lst/config.sh
+
+source "$1"
 
 mkdir -p $TRIM_DIR
 
@@ -14,4 +19,4 @@ while read sample; do
     ILLUMINACLIP:$ADAPTER:2:30:10 \
     LEADING:20 TRAILING:20 \
     SLIDINGWINDOW:4:15 MINLEN:30
-done < ../metadata/sample_list.txt
+done < $METADATA_DIR/sample_list.txt
