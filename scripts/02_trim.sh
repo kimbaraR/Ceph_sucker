@@ -1,8 +1,8 @@
 #!/bin/bash
 # usage:
-# bash 02_trim.sh ../Ses/config.sh
-# bash 02_trim.sh ../Afang/config.sh
-# bash 02_trim.sh ../Lst/config.sh
+# bash scripts/02_trim.sh Ses/config.sh
+# bash scripts/02_trim.sh Afang/config.sh
+# bash scripts/02_trim.sh Lst/config.sh
 
 source "$1"
 
