@@ -12,4 +12,4 @@ ASSEMBLY_DIR=$BASE_DIR/assembly
 TRINITY_OUT=$ASSEMBLY_DIR/trinity
 TRANSCRIPTOME=$TRINITY_OUT/Trinity.fasta
 
-METADATA_DIR=../Lst/metadata
+METADATA_DIR=Lst/metadata
