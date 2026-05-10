@@ -2,7 +2,7 @@
 # usage:
 # bash scripts/06_quantification.sh Ses/config.sh
 
-source $1
+source "$1"
 
 mkdir -p $SALMON_DIR
 
