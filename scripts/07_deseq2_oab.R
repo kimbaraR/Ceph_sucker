@@ -1,16 +1,46 @@
-llibrary(tximport)
+##################################################
+# Run from:
+# Ceph_sucker/
+#
+# Example:
+# Rscript scripts/07_deseq2_oab.R
+##################################################
+
+library(tximport)
 library(DESeq2)
 library(pheatmap)
 library(RColorBrewer)
 
-dir.create("Ses/deseq2/oab", recursive=TRUE, showWarnings=FALSE)
+##################################################
+# directories
+##################################################
 
+BASE_DIR <- path.expand("~/data/Ses_bulk_RNA-seq_2nd-arm")
+
+SALMON_DIR <- file.path(BASE_DIR, "salmon")
+
+dir.create(
+  "Ses/deseq2/oab",
+  recursive=TRUE,
+  showWarnings=FALSE
+)
+
+##################################################
+# sample list
+##################################################
 samples <- read.table(
   "Ses/metadata/sample_list_oab.txt",
   stringsAsFactors=FALSE
 )$V1
 
-files <- file.path("Ses/salmon", samples, "quant.sf")
+##################################################
+# salmon quant files
+##################################################
+files <- file.path(
+  SALMON_DIR,
+  samples,
+  "quant.sf"
+)
 names(files) <- samples
 
 txi <- tximport(files, type="salmon", txOut=TRUE)
@@ -92,7 +122,7 @@ colors <- colorRampPalette(
   rev(brewer.pal(9, "Blues"))
 )(255)
 
-png("oab_sample_distance_heatmap.png")
+png("Ses/deseq2/oab/oab_sample_distance_heatmap.png")
 
 pheatmap(
   sampleDistMatrix,
@@ -107,7 +137,7 @@ dev.off()
 # PCA plot
 ############################
 
-png("oab_PCA.png")
+png("Ses/deseq2/oab/oab_PCA.png")
 
 plotPCA(
   vsd,
