@@ -1,5 +1,10 @@
 #!/bin/bash
-source ../config/config.sh
+# usage:
+# bash scripts/06_quantification.sh Ses/config.sh
+# bash scripts/06_quantification.sh Afang/config.sh
+# bash scripts/06_quantification.sh Lst/config.sh
+
+source $1
 
 mkdir -p $SALMON_DIR
 
@@ -16,4 +21,4 @@ while read sample; do
     -2 $TRIM_DIR/${sample}_R2P.fq.gz \
     -p $THREADS \
     -o $SALMON_DIR/${sample}
-done < ../metadata/sample_list.txt
+done < $METADATA_DIR/sample_list.txt
