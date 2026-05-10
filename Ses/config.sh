@@ -12,7 +12,7 @@ ASSEMBLY_DIR=$BASE_DIR/assembly
 SALMON_DIR=$BASE_DIR/salmon
 ADAPTER=$BASE_DIR/adapter_Ses.fa
 
-METADATA_DIR=../Ses/metadata
+METADATA_DIR=Ses/metadata
 
 # Assembly outputs
 TRINITY_ABO=$ASSEMBLY_DIR/Trinity_Ses2nd_oab
