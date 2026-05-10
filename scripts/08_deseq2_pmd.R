@@ -1,16 +1,48 @@
+##################################################
+# Run from: 
+# Ceph_sucker/ 
+# 
+# Example: 
+# Rscript scripts/07_deseq2_pmd.R 
+##################################################
+
 library(tximport)
 library(DESeq2)
 library(pheatmap)
 library(RColorBrewer)
 
-dir.create("../deseq2/pmd", recursive=TRUE, showWarnings=FALSE)
+##################################################
+# directories
+##################################################
+
+BASE_DIR <- path.expand("~/data/Ses_bulk_RNA-seq_2nd-arm")
+
+SALMON_DIR <- file.path(BASE_DIR, "salmon")
+
+dir.create(
+  "Ses/deseq2/pmd",
+  recursive=TRUE,
+  showWarnings=FALSE
+)
+
+##################################################
+# sample list
+##################################################
 
 samples <- read.table(
   "../metadata/sample_list_pmd.txt",
   stringsAsFactors=FALSE
 )$V1
 
-files <- file.path("../salmon", samples, "quant.sf")
+##################################################
+# salmon quant files
+##################################################
+files <- file.path(
+  SALMON_DIR,
+  samples,
+  "quant.sf"
+)
+
 names(files) <- samples
 
 txi <- tximport(files, type="salmon", txOut=TRUE)
@@ -29,7 +61,7 @@ gene_exp <- summarizeToGene(
 count <- round(gene_exp$counts)
 
 coldata <- read.table(
-  "../metadata/conditions_pmd.tsv",
+  "Ses/metadata/conditions_pmd.tsv",
   header=TRUE,
   row.names=1
 )
@@ -42,7 +74,9 @@ dds <- DESeqDataSetFromMatrix(
 
 dds <- dds[rowSums(counts(dds)) >= 10,]
 
-dds <- DESeq(dds, fitType="local")
+dds <- estimateSizeFactors(dds)
+dds <- estimateDispersions(dds, fitType = c("local"))
+dds <- nbinomWaldTest(dds)
 
 
 ##################################################
@@ -53,7 +87,7 @@ res_DP <- results(dds, contrast=c("condition","D","P"))
 
 write.csv(
   as.data.frame(res_DP[order(res_DP$padj),]),
-  "../deseq2/pmd/DESeq2_D_vs_P.csv"
+  "Ses/deseq2/pmd/DESeq2_D_vs_P.csv"
 )
 
 deg_DP <- subset(as.data.frame(res_DP), padj < 0.05)
@@ -63,7 +97,7 @@ proximal_DP <- subset(deg_DP, log2FoldChange < 0)
 
 write.table(
   rownames(distal_DP),
-  "../deseq2/pmd/distal_DP_genes.txt",
+  "Ses/deseq2/pmd/distal_DP_genes.txt",
   quote=FALSE,
   row.names=FALSE,
   col.names=FALSE
@@ -71,7 +105,7 @@ write.table(
 
 write.table(
   rownames(proximal_DP),
-  "../deseq2/pmd/proximal_DP_genes.txt",
+  "Ses/deseq2/pmd/proximal_DP_genes.txt",
   quote=FALSE,
   row.names=FALSE,
   col.names=FALSE
@@ -85,7 +119,7 @@ res_MP <- results(dds, contrast=c("condition","M","P"))
 
 write.csv(
   as.data.frame(res_MP[order(res_MP$padj),]),
-  "../deseq2/pmd/DESeq2_M_vs_P.csv"
+  "Ses/deseq2/pmd/DESeq2_M_vs_P.csv"
 )
 
 deg_MP <- subset(as.data.frame(res_MP), padj < 0.05)
@@ -95,7 +129,7 @@ proximal_MP <- subset(deg_MP, log2FoldChange < 0)
 
 write.table(
   rownames(middle_MP),
-  "../deseq2/pmd/middle_MP_genes.txt",
+  "Ses/deseq2/pmd/middle_MP_genes.txt",
   quote=FALSE,
   row.names=FALSE,
   col.names=FALSE
@@ -103,7 +137,7 @@ write.table(
 
 write.table(
   rownames(proximal_MP),
-  "../deseq2/pmd/proximal_MP_genes.txt",
+  "Ses/deseq2/pmd/proximal_MP_genes.txt",
   quote=FALSE,
   row.names=FALSE,
   col.names=FALSE
@@ -117,7 +151,7 @@ res_DM <- results(dds, contrast=c("condition","D","M"))
 
 write.csv(
   as.data.frame(res_DM[order(res_DM$padj),]),
-  "../deseq2/pmd/DESeq2_D_vs_M.csv"
+  "Ses/deseq2/pmd/DESeq2_D_vs_M.csv"
 )
 
 deg_DM <- subset(as.data.frame(res_DM), padj < 0.05)
@@ -127,7 +161,7 @@ middle_DM <- subset(deg_DM, log2FoldChange < 0)
 
 write.table(
   rownames(distal_DM),
-  "../deseq2/pmd/distal_DM_genes.txt",
+  "Ses/deseq2/pmd/distal_DM_genes.txt",
   quote=FALSE,
   row.names=FALSE,
   col.names=FALSE
@@ -135,7 +169,7 @@ write.table(
 
 write.table(
   rownames(middle_DM),
-  "../deseq2/pmd/middle_DM_genes.txt",
+  "Ses/deseq2/pmd/middle_DM_genes.txt",
   quote=FALSE,
   row.names=FALSE,
   col.names=FALSE
@@ -163,7 +197,7 @@ colors <- colorRampPalette(
   rev(brewer.pal(9, "Blues"))
 )(255)
 
-png("../deseq2/pmd/pmd_sample_distance_heatmap.png")
+png("Ses/deseq2/pmd/pmd_sample_distance_heatmap.png")
 
 pheatmap(
   sampleDistMatrix,
@@ -178,7 +212,7 @@ dev.off()
 # PCA plot
 ############################
 
-png("../deseq2/pmd/pmd_PCA.png")
+png("Ses/deseq2/pmd/pmd_PCA.png")
 
 plotPCA(
   vsd,
