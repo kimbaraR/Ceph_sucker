@@ -5,3 +5,4 @@ BUSCO 5.4.2
 Salmon 1.8.0
 DESeq2 v1.38.1
 tximport v1.26.0
+SeqKit 2.10.1
