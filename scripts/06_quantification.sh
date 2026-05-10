@@ -1,8 +1,6 @@
 #!/bin/bash
 # usage:
 # bash scripts/06_quantification.sh Ses/config.sh
-# bash scripts/06_quantification.sh Afang/config.sh
-# bash scripts/06_quantification.sh Lst/config.sh
 
 source $1
 
