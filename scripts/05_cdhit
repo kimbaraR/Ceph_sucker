@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # usage:
-# bash scripts/05_cdhit Ses/config.sh
-# bash scripts/05_cdhit Afang/config.sh
-# bash scripts/05_cdhit Lst/config.sh
+# bash scripts/05_cdhit.sh Ses/config.sh
+# bash scripts/05_cdhit.sh Afang/config.sh
+# bash scripts/05_cdhit.sh Lst/config.sh
 
 source $1
 
