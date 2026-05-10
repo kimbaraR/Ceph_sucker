@@ -5,7 +5,7 @@
 # bash scripts/05_cdhit.sh Afang/config.sh
 # bash scripts/05_cdhit.sh Lst/config.sh
 
-source $1
+source "$1"
 
 cd-hit-est \
 -i $TRINITY_FASTA \
