@@ -1,5 +1,10 @@
 #!/bin/bash
-source ../config/config.sh
+# usage:
+# bash 03_assembly.sh ../Ses/config.sh
+# bash 03_assembly.sh ../Afang/config.sh
+# bash 03_assembly.sh ../Lst/config.sh
+
+source "$1"
 
 mkdir -p $ASSEMBLY_DIR
 
