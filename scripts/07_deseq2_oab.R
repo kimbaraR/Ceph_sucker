@@ -3,14 +3,14 @@ library(DESeq2)
 library(pheatmap)
 library(RColorBrewer)
 
-dir.create("../deseq2/oab", recursive=TRUE, showWarnings=FALSE)
+dir.create("Ses/deseq2/oab", recursive=TRUE, showWarnings=FALSE)
 
 samples <- read.table(
-  "../metadata/sample_list_oab.txt",
+  "Ses/metadata/sample_list_oab.txt",
   stringsAsFactors=FALSE
 )$V1
 
-files <- file.path("../salmon", samples, "quant.sf")
+files <- file.path("Ses/salmon", samples, "quant.sf")
 names(files) <- samples
 
 txi <- tximport(files, type="salmon", txOut=TRUE)
@@ -29,7 +29,7 @@ gene_exp <- summarizeToGene(
 count <- round(gene_exp$counts)
 
 coldata <- read.table(
-  "../metadata/conditions_oab.tsv",
+  "Ses/metadata/conditions_oab.tsv",
   header=TRUE,
   row.names=1
 )
@@ -50,7 +50,7 @@ res <- results(dds)
 
 write.csv(
   as.data.frame(res[order(res$padj),]),
-  "../deseq2/oab/DESeq2_O_vs_Ab.csv"
+  "Ses/deseq2/oab/DESeq2_O_vs_Ab.csv"
 )
 
 deg <- subset(as.data.frame(res), padj < 0.05)
@@ -60,7 +60,7 @@ aboral <- subset(deg, log2FoldChange < 0)
 
 write.table(
   rownames(oral),
-  "../deseq2/oab/oral_genes.txt",
+  "Ses/deseq2/oab/oral_genes.txt",
   quote=FALSE,
   row.names=FALSE,
   col.names=FALSE
@@ -68,7 +68,7 @@ write.table(
 
 write.table(
   rownames(aboral),
-  "../deseq2/oab/aboral_genes.txt",
+  "Ses/deseq2/oab/aboral_genes.txt",
   quote=FALSE,
   row.names=FALSE,
   col.names=FALSE
